@@ -25,16 +25,17 @@
 // dfs
 
 var pathSum = function (root, sum) {
-    if (sum === 0) return [[]];
-    if (sum < 0 || !root) return [];
+    if (!root) return [];
+    if (sum - root.val === 0 && !root.right && !root.left) return [[root.val]];
+    if (sum - root.val !== 0 && !root.right && !root.left) return [];
 
     const rightArray = pathSum(root.right, sum - root.val);
     const leftArray = pathSum(root.left, sum - root.val);
 
-    const out = rightArray.concat(leftArray);
-    return out.map(subArray => {
-        subArray.unshift(root.val);
-        return subArray;
-    })
-
+    rightArray.forEach(ele => ele.unshift(root.val));
+    leftArray.forEach(ele => ele.unshift(root.val));
+    const out = [];
+    out.push(...rightArray);
+    out.push(...leftArray);
+    return out
 };
