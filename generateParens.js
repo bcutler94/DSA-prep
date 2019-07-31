@@ -26,8 +26,11 @@ base n = 1 return ()
 var generateParenthesis = function (n, set = new Set()) {
     if (n === 1) return ["()"];
     if (n <= 1) return []
+
     const perms = generateParenthesis(n - 1, set);
+
     const out = [];
+    
     for (const parens of perms) {
         for (let i = 0; i < parens.length - 1; i++) {
             if (parens[i] === '(' && parens[i + 1] === ')') {

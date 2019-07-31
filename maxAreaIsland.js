@@ -3,14 +3,14 @@
 // Find the maximum area of an island in the given 2D array. (If there is no island, the maximum area is 0.)
 
 // Example 1:
-const matrix = [[0,0,1,0,0,0,0,1,0,0,0,0,0],
- [0,0,0,0,0,0,0,1,1,1,0,0,0],
- [0,1,1,0,1,0,0,0,0,0,0,0,0],
- [0,1,0,0,1,1,0,0,1,0,1,0,0],
- [0,1,0,0,1,1,0,0,1,1,1,0,0],
- [0,0,0,0,0,0,0,0,0,0,1,0,0],
- [0,0,0,0,0,0,0,1,1,1,0,0,0],
- [0,0,0,0,0,0,0,1,1,0,0,0,0]];
+// const matrix = [[0,0,1,0,0,0,0,1,0,0,0,0,0],
+//  [0,0,0,0,0,0,0,1,1,1,0,0,0],
+//  [0,1,1,0,1,0,0,0,0,0,0,0,0],
+//  [0,1,0,0,1,1,0,0,1,0,1,0,0],
+//  [0,1,0,0,1,1,0,0,1,1,1,0,0],
+//  [0,0,0,0,0,0,0,0,0,0,1,0,0],
+//  [0,0,0,0,0,0,0,1,1,1,0,0,0],
+//  [0,0,0,0,0,0,0,1,1,0,0,0,0]];
 // Given the above grid, return 6. Note the answer is not 11, because the island must be connected 4-directionally.
 
 // Example 2:
@@ -21,16 +21,17 @@ const matrix = [[0,0,1,0,0,0,0,1,0,0,0,0,0],
 
 function islands(matrix) {
     let max = 0;
+    const set = new Set ();
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[0].length; j++) {
-            const tempMax = getArea(matrix, i, j);
+            const tempMax = getArea(matrix, i, j, set)
             if (tempMax > max) max = tempMax;
         }
     }
     return max;
 }
 
-function getArea(matrix, row, col, set = new Set ()) {
+function getArea(matrix, row, col, set) {
     let key = `${row},${col}`;
     if (set.has(key)) return 0;
     if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) return 0;
